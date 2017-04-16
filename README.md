@@ -1,4 +1,6 @@
-# ForkJoinSudokuSolver
-ForkJoin algorithm that finds the number of all possible solution of a given sudoku
+# Fork/Join Sudoku Solver
+Solver that uses <i>Fork/Join</i> framework to solve Sudoku in <b>parallel</b>
 
-## TODO
+### How to use
+
+### Test
