@@ -5,6 +5,7 @@ import it.ric.uny.multi.SudokuMulti;
 import it.ric.uny.single.SudokuSolver;
 import it.ric.uny.single.Cell;
 
+import it.ric.uny.utils.Extrapolator;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.TreeMap;

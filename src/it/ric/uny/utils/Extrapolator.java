@@ -1,4 +1,4 @@
-package it.ric.uny;
+package it.ric.uny.utils;
 
 import it.ric.uny.single.Cell;
 
