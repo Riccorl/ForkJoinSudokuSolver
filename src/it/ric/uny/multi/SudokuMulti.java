@@ -82,15 +82,13 @@ public class SudokuMulti extends RecursiveTask<Integer> {
         }
 
         for (Integer v : legal) {
-            if (checkValueCorrect(i, j, v))
-            // Fork
-            {
+            if (checkValueCorrect(i, j, v)) {
+                // Fork
                 forkedThreads.add(new SudokuMulti(sudoku, i, j, v, cutoff).fork());
             }
         }
-        for (ForkJoinTask<Integer> forkedThread : forkedThreads)
-        // Join
-        {
+        for (ForkJoinTask<Integer> forkedThread : forkedThreads) {
+            // Join
             counter += forkedThread.join();
         }
 
