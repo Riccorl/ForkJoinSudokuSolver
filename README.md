@@ -1,5 +1,5 @@
 # Fork/Join Sudoku Solver
-Solver that uses <i>Fork/Join</i> framework to solve Sudoku in <b>parallel</b>
+<i>Fork/Join</i> algorithm that count the number of solutions of a given Sudoku in <b>parallel</b>.
 
 ### How to use
 
