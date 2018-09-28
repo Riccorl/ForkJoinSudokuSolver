@@ -1,6 +1,8 @@
 package it.ric.uny.single;
 
 
+import static java.math.BigInteger.*;
+
 import java.math.BigInteger;
 
 /**
@@ -10,7 +12,7 @@ public class SudokuSolver {
 
     private Cell[][] sudoku;
     private int counter;
-    private BigInteger solDim = BigInteger.ONE;
+    private BigInteger solDim = ONE;
 
     /**
      * @param sudoku Cell[][]
@@ -28,8 +30,8 @@ public class SudokuSolver {
      */
     public Cell[][] solverRic() {
 
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
+        for (var i = 0; i < 9; i++) {
+            for (var j = 0; j < 9; j++) {
                 if (sudoku[i][j].getNumSet().size() == 1) {
                     sudoku[i][j].setCurrent(sudoku[i][j].getSingleElement());
                 }
@@ -68,6 +70,7 @@ public class SudokuSolver {
                 sudoku[i][j].setCurrent(0);
             }
         }
+
         sudoku[i][j].setCurrent(0);
         return 0;
     }
@@ -123,7 +126,7 @@ public class SudokuSolver {
                     }
                 }
                 if (sudoku[i][j].getNumSet().size() != 0) {
-                    solDim = solDim.multiply(BigInteger.valueOf(sudoku[i][j].getNumSet().size()));
+                    solDim = solDim.multiply(valueOf(sudoku[i][j].getNumSet().size()));
                 }
             }
         }

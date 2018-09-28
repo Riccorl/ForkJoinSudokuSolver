@@ -2,11 +2,14 @@ package it.ric.uny.single;
 
 import java.util.HashSet;
 import java.util.Set;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 
 /**
  * Wrapper for cell matrix
  */
+@Data
 public class Cell {
 
     private Set<Integer> numSet = new HashSet<>();
@@ -14,12 +17,7 @@ public class Cell {
     private int i;
     private int j;
 
-    /**
-     * @param i i position
-     * @param j j position
-     */
     public Cell(int i, int j) {
-        current = 0;
         this.i = i;
         this.j = j;
     }
@@ -38,27 +36,6 @@ public class Cell {
      */
     public int getSingleElement() {
         return numSet.iterator().next();
-    }
-
-    /**
-     * @return the set of legal value
-     */
-    public Set<Integer> getNumSet() {
-        return numSet;
-    }
-
-    /**
-     * @return the current value of the cell
-     */
-    public int getCurrent() {
-        return current;
-    }
-
-    /**
-     * @param current value to set
-     */
-    public void setCurrent(int current) {
-        this.current = current;
     }
 
 }

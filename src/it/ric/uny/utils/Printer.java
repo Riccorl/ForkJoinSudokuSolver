@@ -14,9 +14,9 @@ public class Printer {
      */
     public static void printf(Cell[][] sudoku) {
         System.out.print("- - - - - - - - - - -" + "\n");
-        for (int j = 0; j < 9; j++) {
+        for (var j = 0; j < 9; j++) {
             System.out.print("|");
-            for (int i = 0; i < 9; i++) {
+            for (var i = 0; i < 9; i++) {
                 System.out.print(sudoku[j][i].getCurrent() + " ");
                 if ((i + 1) % 3 == 0) {
                     System.out.print("|");
@@ -34,9 +34,9 @@ public class Printer {
      */
     public static void intPrintf(int[][] sudoku) {
         System.out.print("- - - - - - - - - - -" + "\n");
-        for (int j = 0; j < 9; j++) {
+        for (var j = 0; j < 9; j++) {
             System.out.print("|");
-            for (int i = 0; i < 9; i++) {
+            for (var i = 0; i < 9; i++) {
                 System.out.print(sudoku[j][i] + " ");
                 if ((i + 1) % 3 == 0) {
                     System.out.print("|");

@@ -18,23 +18,23 @@ import java.util.concurrent.ForkJoinPool;
 public class SudokuTest {
 
     public static void main(String[] args) {
-        Extrapolator extrapolator = new Extrapolator();
-        NumberFormat formatterExp = new DecimalFormat("0.0000E0");
+        var extrapolator = new Extrapolator();
+        var formatterExp = new DecimalFormat("0.0000E0");
 
-        int[][] m = extrapolator.extrapolator(args[0]);
-        Cell[][] s = extrapolator.cellExtrapolator(args[0]);
+        var m = extrapolator.extrapolator(args[0]);
+        var s = extrapolator.cellExtrapolator(args[0]);
         System.out.println("File: " + args[0]);
 
-        TreeMap<Double, Float> results = new TreeMap<>(Double::compare);
+        var results = new TreeMap<Double, Float>(Double::compare);
 
-        int empty = extrapolator.getEmptyCell();
-        double fill = empty * 100 / 81;
+        var empty = extrapolator.getEmptyCell();
+        var fill = empty * 100 / 81;
 
         // Sequential Algorithm
-        SudokuSolver ss = new SudokuSolver(s);
-        long startTime = System.currentTimeMillis();
+        var ss = new SudokuSolver(s);
+        var startTime = System.currentTimeMillis();
         ss.solverRic();
-        long endTime = System.currentTimeMillis();
+        var endTime = System.currentTimeMillis();
 
         System.out.println("Fill Factor: " + fill + "%");
         System.out.println("Solutions Space: " + formatterExp.format(ss.getSolDim()));
@@ -62,26 +62,25 @@ public class SudokuTest {
             cutj = 1;
         }
 
-        int c = 0;      // Solutions counter
+        var c = 0;      // Solutions counter
 
         System.out.println("Parallel");
 
         // Number of tentative
-        int k = 10;
+        var k = 10;
 
-        for (int i = 0; i < k; i++) {
-            long startTimeM = System.currentTimeMillis();
+        for (var i = 0; i < k; i++) {
+            var startTimeM = System.currentTimeMillis();
             c = ForkJoinPool.commonPool().invoke(new SudokuMulti(m, new Coordinate(cuti, cutj)));
-            long endTimeM = System.currentTimeMillis();
+            var endTimeM = System.currentTimeMillis();
 
             double time = endTimeM - startTimeM;
 
             results.put(time, (float) (endTime - startTime) / (endTimeM - startTimeM));
-            System.out.println("Iteration: " + (i + 1));
+            System.out.println("Iteration: {}" + (i + 1));
             System.out.println("Parallel Execution Time: " + (endTimeM - startTimeM) + "ms");
-            System.out
-                .println(
-                    "Speedup: " + (float) (endTime - startTime) / (endTimeM - startTimeM) + "\n");
+            System.out.println("Speedup: "
+                + (float) (endTime - startTime) / (endTimeM - startTimeM) + "\n");
         }
 
         System.out.println("\nLegal Solutions: " + c);

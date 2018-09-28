@@ -69,29 +69,26 @@ public class SudokuMulti extends RecursiveTask<Integer> {
      */
     @Override
     protected Integer compute() {
-        List<ForkJoinTask<Integer>> forkedThreads = new ArrayList<>();
-
+        var forkedThreads = new ArrayList<ForkJoinTask<Integer>>();
         // if coor is NULL, the sudoku is done
         if (coor == null) {
             return ++counter;
         }
-
         // if cutoff is true, do sequential
         if (this.i == cutoff.getI() && this.j == cutoff.getJ()) {
             return solver(i, j) + counter;
         }
 
-        for (Integer v : legal) {
+        for (var v : legal) {
             if (checkValueCorrect(i, j, v)) {
                 // Fork
                 forkedThreads.add(new SudokuMulti(sudoku, i, j, v, cutoff).fork());
             }
         }
-        for (ForkJoinTask<Integer> forkedThread : forkedThreads) {
+        for (var forkedThread : forkedThreads) {
             // Join
             counter += forkedThread.join();
         }
-
         return counter;
     }
 
@@ -117,7 +114,7 @@ public class SudokuMulti extends RecursiveTask<Integer> {
             return solver(i + 1, j);
         }
 
-        for (int v = 1; v <= 9; ++v) {
+        for (var v = 1; v <= 9; ++v) {
             if (checkValueCorrect(i, j, v)) {
                 sudoku[i][j] = v;
                 solver(i + 1, j);
@@ -132,17 +129,16 @@ public class SudokuMulti extends RecursiveTask<Integer> {
     /**
      * Matrix copy
      *
-     * @return sudoku copiato.
+     * @return copied sudoku.
      */
     private int[][] createCopy(int[][] sudoku) {
-        int[][] toReturn = new int[9][9];
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                toReturn[j][i] = sudoku[j][i];
+        var sudokuCopy = new int[9][9];
+        for (var i = 0; i < 9; i++) {
+            for (var j = 0; j < 9; j++) {
+                sudokuCopy[j][i] = sudoku[j][i];
             }
         }
-
-        return toReturn;
+        return sudokuCopy;
     }
 
     /**
@@ -151,8 +147,8 @@ public class SudokuMulti extends RecursiveTask<Integer> {
      * @return coordinates of first empty cell
      */
     private Coordinate getNextEmpty() {
-        for (int i = 0; i < sudoku.length; i++) {
-            for (int j = 0; j < sudoku[i].length; j++) {
+        for (var i = 0; i < sudoku.length; i++) {
+            for (var j = 0; j < sudoku[i].length; j++) {
                 // if cell is empty, return coordinates
                 if (sudoku[j][i] == 0) {
                     return new Coordinate(j, i);
@@ -171,30 +167,26 @@ public class SudokuMulti extends RecursiveTask<Integer> {
      * @return true if v is legal
      */
     private boolean checkValueCorrect(int i, int j, int v) {
-
-        // checkv not in row
-        for (int k = 0; k < 9; k++) {
+        // check v not in row
+        for (var k = 0; k < 9; k++) {
             if (sudoku[i][k] == v) {
                 return false;
             }
         }
-
         // check v not in column
-        for (int l = 0; l < 9; l++) {
+        for (var l = 0; l < 9; l++) {
             if (sudoku[l][j] == v) {
                 return false;
             }
         }
-
         // check v not in sub-matrix
-        for (int ii = 0; ii < 3; ii++) {
-            for (int jj = 0; jj < 3; jj++) {
+        for (var ii = 0; ii < 3; ii++) {
+            for (var jj = 0; jj < 3; jj++) {
                 if (sudoku[(i / 3) * 3 + ii][(j / 3) * 3 + jj] == v) {
                     return false;
                 }
             }
         }
-
         return true;
     }
 
@@ -204,8 +196,8 @@ public class SudokuMulti extends RecursiveTask<Integer> {
      * @return legal value set.
      */
     private Set<Integer> checkList(int i, int j) {
-        Set<Integer> legal = new HashSet<>();
-        for (int k = 1; k <= 9; k++) {
+        var legal = new HashSet<Integer>();
+        for (var k = 1; k <= 9; k++) {
             if (checkValueCorrect(i, j, k)) {
                 legal.add(k);
             }

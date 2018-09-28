@@ -1,7 +1,6 @@
 package it.ric.uny.utils;
 
 import it.ric.uny.single.Cell;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -24,29 +23,25 @@ public class Extrapolator {
      * @return un'istanza del sudoku caricato da input
      */
     public int[][] extrapolator(String filename) {
-        int[][] matrix = new int[9][9];
+        var matrix = new int[9][9];
         String extracted = null;
         try {
             /*
                Leggo il file del sudoku che ricevo da input
              */
-            extracted = Files
-                .lines(Paths
-                    .get(filename))
-                .map(Object::toString)
+            extracted = Files.lines(Paths.get(filename)).map(Object::toString)
                 .collect(Collectors.joining("\n"));
 
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        String[] array = extracted.split("\n");
 
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[0].length; j++) {
-                if (array[i].charAt(j)
-                    != '.') {
-                    matrix[i][j] = Character.getNumericValue(array[i].charAt(
-                        j));
+        var array = extracted.split("\n");
+
+        for (var i = 0; i < matrix.length; i++) {
+            for (var j = 0; j < matrix[0].length; j++) {
+                if (array[i].charAt(j) != '.') {
+                    matrix[i][j] = Character.getNumericValue(array[i].charAt(j));
                     emptyCell++;
                 }
             }
@@ -62,11 +57,10 @@ public class Extrapolator {
      * @return sudoku instance from input file
      */
     public Cell[][] cellExtrapolator(String filename) {
-        Cell[][] matrix = new Cell[9][9];
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                matrix[i][j] = new Cell(i,
-                    j);
+        var matrix = new Cell[9][9];
+        for (var i = 0; i < 9; i++) {
+            for (var j = 0; j < 9; j++) {
+                matrix[i][j] = new Cell(i, j);
             }
         }
 
@@ -75,24 +69,19 @@ public class Extrapolator {
             /*
             Leggo il file del sudoku che ricevo da input
              */
-            extracted = Files
-                .lines(Paths
-                    .get(filename))
-                .map(Object::toString)
+            extracted = Files.lines(Paths.get(filename)).map(Object::toString)
                 .collect(Collectors.joining("\n"));
 
         } catch (IOException ex) {
             ex.printStackTrace();
         }
 
-        String[] array = extracted.split("\n");
+        var array = extracted.split("\n");
 
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[0].length; j++) {
-                if (array[i].charAt(j)
-                    != '.') {
-                    matrix[i][j].setCurrent(Character.getNumericValue(array[i].charAt(
-                        j)));
+        for (var i = 0; i < matrix.length; i++) {
+            for (var j = 0; j < matrix[0].length; j++) {
+                if (array[i].charAt(j) != '.') {
+                    matrix[i][j].setCurrent(Character.getNumericValue(array[i].charAt(j)));
                 }
             }
         }
@@ -106,7 +95,6 @@ public class Extrapolator {
      * @return il numero di celle vuote
      */
     public int getEmptyCell() {
-
         return emptyCell;
     }
 }
